@@ -1,6 +1,7 @@
 {
   "name": "cbagdawala/laravel-activity",
   "description": "A Laravel package to log model activities",
+  "version": "1.0.0",
   "type": "library",
   "license": "MIT",
   "autoload": {

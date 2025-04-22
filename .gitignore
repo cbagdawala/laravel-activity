@@ -36,3 +36,6 @@ clover.xml
 
 # Composer artifacts
 composer.lock
+
+# Composer.phar
+composer.phar

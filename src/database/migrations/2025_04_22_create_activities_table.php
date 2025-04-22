@@ -5,9 +5,16 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    protected $table;
+
+    public function __construct()
+    {
+        $this->table = \Illuminate\Support\Facades\Config::get('activity.table', 'activities');
+    }
+
     public function up(): void
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->string('title');
@@ -21,6 +28,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists($this->table);
     }
 };
