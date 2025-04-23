@@ -16,7 +16,7 @@ return new class extends Migration {
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->id();
-            $table->date('date');
+            $table->datetime('date');
             $table->string('title');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
