@@ -18,10 +18,10 @@ class ActivityLoggerServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/config/activity.php' => config_path('activity.php'),
-        ], 'laravel-activity-config');
+        ], 'activity');
 
         $this->mergeConfigFrom(
-            __DIR__.'/config/activity.php', 'laravel-activity-config'
+            __DIR__.'/config/activity.php', 'activity'
         );
 
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');

@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Config;
 
 class ActivityCollector
 {
+    public static function add(array $data): void
+    {
+        $activities = static::fetchActivities() ?? [];
+        $activities[] = $data;
+        static::storeActivities($activities);
+    }
+
     protected static function fetchActivities()
     {
         return Cache::get(Config::get('activity.session_key', 'activity_log_data'), []);
@@ -17,11 +24,18 @@ class ActivityCollector
         Cache::put(Config::get('activity.session_key', 'activity_log_data'), $activities);
     }
 
-    public static function add(array $data): void
+    public static function addToQueue(array $data): void
     {
-        $activities = static::fetchActivities() ?? [];
+        $activities = static::fetchActivitiesFromQueue() ?? [];
         $activities[] = $data;
-        static::storeActivities($activities);
+        Cache::put(Config::get('activity.queue_key', 'activity_log_queue'), $activities);
+    }
+
+    //add to queue
+
+    public static function fetchActivitiesFromQueue()
+    {
+        return Cache::get(Config::get('activity.queue_key', 'activity_log_queue'), []);
     }
 
     public static function all(): array
@@ -32,6 +46,7 @@ class ActivityCollector
     public static function clear(): void
     {
         Cache::forget(Config::get('activity.session_key', 'activity_log_data'));
+        Cache::forget(Config::get('activity.queue_key', 'activity_log_queue'));
     }
 }
 

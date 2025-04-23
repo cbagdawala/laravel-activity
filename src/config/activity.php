@@ -11,6 +11,9 @@ return [
     //Session key
     'session_key' => 'activity_log_data',
 
+    //Queue key
+    'queue_key' => 'activity_log_queue',
+
     //Models where ActivityObserver is applied
     'models' => [],
 
