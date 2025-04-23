@@ -38,8 +38,8 @@ class ActivityObserver
         }
 
         $guard = Config::get('system.auth.admin', 'admin');
-        //if (array_key_exists($guard, Config::get('auth.guards', []))) {
-            $userId = 1;//Auth::guard($guard)->id();
+        if (array_key_exists($guard, Config::get('auth.guards', []))) {
+            $userId = Auth::guard($guard)->id();
 
             $data = [
                 'title'             => "$action: " . class_basename($model),
@@ -52,7 +52,7 @@ class ActivityObserver
 
             // Log activity data to session
             ActivityCollector::add($data);
-        //}
+        }
     }
 }
 
